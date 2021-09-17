@@ -1,1 +1,3 @@
 # graham-scan
+
+Project files are still in progress and only public because of VCS and sharing purpose...
