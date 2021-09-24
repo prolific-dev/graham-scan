@@ -5,24 +5,26 @@ import javafx.geometry.Point2D;
 import java.util.*;
 import java.util.stream.Collectors;
 
+public class PreScan {
+    private Map<Point2D, Double> undefined;
+    private Map<Point2D, Double> inner;
+    private Stack<Map.Entry<Point2D, Double>> outer;
 
-public class Scan {
-    Map<Point2D, Double> undefined;
-    Map<Point2D, Double> inner;
-    Stack<Map.Entry<Point2D, Double>> outer;
+    private Point2D minPoint;
 
-    public Scan(Map<Point2D, Double> anglePointMap) {
+    public PreScan(Map<Point2D, Double> anglePointMap) {
         this.inner = new LinkedHashMap<>();
         this.outer = new Stack<>();
         this.undefined = sortByAngleAndPreFeedInner(anglePointMap);
     }
-    
+
     private Map<Point2D, Double> sortByAngleAndPreFeedInner(Map<Point2D, Double> map) {
         Iterator<Map.Entry<Point2D, Double>> iterator = map.entrySet().iterator();
         List<Map.Entry<Point2D, Double>> entriesToRemove = new ArrayList<>();
         List<Map.Entry<Point2D, Double>> allEntriesToRemove = new ArrayList<>();
-        Point2D minPoint = iterator.next().getKey();
-        
+
+        minPoint = iterator.next().getKey();
+
         while (iterator.hasNext()) {
             Map.Entry<Point2D, Double> current = iterator.next();
             // entriesToRemove is empty
@@ -69,25 +71,6 @@ public class Scan {
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
     }
 
-
-    private Stack<Map.Entry<Point2D, Double>> graham() {
-        return null;
-    }
-
-    /*
-    private void addMapToStack(Map<Point2D, Double> anglePointMap) {
-        Set<Map.Entry<Point2D, Double>> set = anglePointMap.entrySet();
-
-        set.stream()
-                .collect(Collectors.collectingAndThen(Collectors.toList(),
-                        lst -> {
-                            Collections.reverse(lst);
-                            return lst.stream();
-                        }))
-                .forEach(entry -> this.undefined.push(entry));
-    }
-     */
-
     public Map<Point2D, Double> getUndefined() {
         return this.undefined;
     }
@@ -100,5 +83,7 @@ public class Scan {
         return this.outer;
     }
 
-
+    public Point2D getMinPoint() {
+        return this.minPoint;
+    }
 }

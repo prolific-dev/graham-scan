@@ -1,7 +1,7 @@
 import javafx.geometry.Point2D;
 import model.Converter;
-import model.GrahamGeomCalc;
-import model.Scan;
+import model.GeomCalc;
+import model.GrahamScan;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +14,7 @@ public class Test {
     public static void main(String[] args) throws IOException {
         Converter converter = new Converter(new File("src/data/data.txt"));
         List<Point2D> dataList = converter.getInput();
-        GrahamGeomCalc grahamGeomCalc = new GrahamGeomCalc(dataList);
+        GeomCalc geomCalc = new GeomCalc(dataList);
 
         System.out.println("");
 
@@ -24,15 +24,15 @@ public class Test {
 
         System.out.println("");
 
-        System.out.println("Size: " + grahamGeomCalc.getDataList().size());
-        //System.out.println(GrahamGeomCalc.getMinPoint(dataList));
-        System.out.println(grahamGeomCalc.getMinPoint());
-        //System.out.println(GrahamGeomCalc.getMinPoint(dataList).angle(dataList.get(0)));
-        System.out.println(grahamGeomCalc.getMinPoint().angle(grahamGeomCalc.getDataList().get(0)));
+        System.out.println("Size: " + geomCalc.getDataList().size());
+        //System.out.println(GeomCalc.getMinPoint(dataList));
+        System.out.println(geomCalc.getMinPoint());
+        //System.out.println(GeomCalc.getMinPoint(dataList).angle(dataList.get(0)));
+        System.out.println(geomCalc.getMinPoint().angle(geomCalc.getDataList().get(0)));
 
         System.out.println("");
 
-        Map<Point2D, Double> map = grahamGeomCalc.getAngleDataMap();
+        Map<Point2D, Double> map = geomCalc.getAngleDataMap();
         Set<Map.Entry<Point2D, Double>> set = map.entrySet();
         set.forEach(mp -> {
             System.out.print(mp.getKey() + ": ");
@@ -56,24 +56,24 @@ public class Test {
 
         System.out.println("");
 
-        System.out.println(grahamGeomCalc.getAngleDataMap().size());
+        System.out.println(geomCalc.getAngleDataMap().size());
 
         System.out.println();
 
-        Scan scan = new Scan(grahamGeomCalc.getAngleDataMap());
+        GrahamScan grahamScan = new GrahamScan(geomCalc.getAngleDataMap());
 
-        System.out.println(scan.getUndefined());
+        System.out.println(grahamScan.getUndefined());
         System.out.println("");
-        // System.out.println(scan.getOuter());
-        System.out.println("");
-
-        scan.getUndefined().forEach((key, value) -> System.out.println(value));
-
+        // System.out.println(grahamScan.getOuter());
         System.out.println("");
 
-        System.out.println(scan.getUndefined().size());
+        grahamScan.getUndefined().forEach((key, value) -> System.out.println(value));
 
-        System.out.println(scan.getInner());
+        System.out.println("");
+
+        System.out.println(grahamScan.getUndefined().size());
+
+        System.out.println(grahamScan.getInner());
         System.out.println("");
 
         System.out.println("");

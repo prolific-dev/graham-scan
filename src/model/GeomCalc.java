@@ -2,16 +2,19 @@ package model;
 
 import javafx.geometry.Point2D;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class GrahamGeomCalc {
+public class GeomCalc {
     private static final Point2D ZERO = new Point2D(0, 0);
     private final Point2D minPoint;
     private final List<Point2D> dataList;
     private final Map<Point2D, Double> angleDataMap;
 
 
-    public GrahamGeomCalc(List<Point2D> input) {
+    public GeomCalc(List<Point2D> input) {
         this.dataList = normalizeInput(input);
         this.minPoint = minPointCalc();
         this.angleDataMap = mapAngleData();
@@ -19,11 +22,11 @@ public class GrahamGeomCalc {
     }
 
     private List<Point2D> normalizeInput(List<Point2D> input) {
+        List<Point2D> normalizedList = new ArrayList<>();
         double minX = ZERO.getX();
         double maxX = ZERO.getX();
         double minY = ZERO.getY();
         double maxY = ZERO.getY();
-        List<Point2D> normalizedList = new ArrayList<>();
 
         for (Point2D p : input) {
             if (p.getX() < minX)
@@ -65,18 +68,16 @@ public class GrahamGeomCalc {
     }
 
     private Map<Point2D, Double> mapAngleData() {
-        Point2D minPoint = this.minPoint;
-        List<Point2D> dataList = this.dataList;
         Map<Point2D, Double> map = new HashMap<>();
+        List<Point2D> dataList = this.dataList;
+        Point2D minPoint = this.minPoint;
 
         map.put(minPoint, 0.0);
         dataList.remove(minPoint);
-
         dataList.forEach(p -> map.put(p, minPoint.angle(p)));
 
         return map;
     }
-
 
     public List<Point2D> getDataList() {
         return this.dataList;

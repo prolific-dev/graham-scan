@@ -9,8 +9,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("aview/sample.fxml"));
-        primaryStage.setTitle("Graham Scan - Get your graphical convex hull");
-        primaryStage.setScene(new Scene(root, 800 , 500));
+        primaryStage.setTitle("Graham GrahamScan - Get your graphical convex hull");
+        primaryStage.setScene(new Scene(root, 800, 500));
         primaryStage.show();
     }
 
