@@ -2,7 +2,10 @@ package model;
 
 import javafx.geometry.Point2D;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -21,7 +24,7 @@ public class Converter {
         Set<Point2D> dataSet = new HashSet<>();
 
         while ((currentString = bufferedReader.readLine()) != null) {
-            if (currentString.matches("[1-9], [1-9]")) {
+            if (currentString.matches("[1-9]{1,2}, [1-9]{1,2}")) {
                 double x = Double.parseDouble(String.valueOf(currentString.charAt(0)));
                 double y = Double.parseDouble(String.valueOf(currentString.charAt(3)));
                 Point2D point2D = new Point2D(x, y);
@@ -31,7 +34,7 @@ public class Converter {
                         + currentString
                         + "' has wrong formatting."
                         + " Check if data is in the right regex structure"
-                        + " ([1-9], [1-9])."
+                        + " ([1-9]{1,2}, [1-9]{1,2})."
                         + " Correct and restart"
                         + " program to put data into list.");
             }
