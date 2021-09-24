@@ -6,14 +6,14 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class PreScan {
-    List<Map.Entry<Point2D, Double>> tmpEntriesToRemove;
-    List<Map.Entry<Point2D, Double>> allEntriesToRemove;
-    Iterator<Map.Entry<Point2D, Double>> iterator;
-
     Map<Point2D, Double> undefined;
     Map<Point2D, Double> inner;
     Stack<Map.Entry<Point2D, Double>> outer;
     Point2D minPoint;
+
+    List<Map.Entry<Point2D, Double>> tmpEntriesToRemove;
+    List<Map.Entry<Point2D, Double>> allEntriesToRemove;
+    Iterator<Map.Entry<Point2D, Double>> iterator;
 
     public PreScan(Map<Point2D, Double> anglePointMap) {
         this.inner = new LinkedHashMap<>();
@@ -36,35 +36,45 @@ public class PreScan {
                 // does current belong to double group in entriesToRemove, if yes:
                 if (currentAngle != entryAngle) { // if no:
                     if (tmpEntriesToRemove.size() > 1) { // check entriesToRemove contains more than 1 elements
-                        Map.Entry<Point2D, Double> max = null; // max distance point of this group
-                        for (Map.Entry<Point2D, Double> entry : tmpEntriesToRemove) {
-                            if (max == null) { // set max distance point of group if not set yet
-                                max = entry;
-                            } else { // find out max distance point of group and add the rest to allEntriesToRemove
-                                double entryDistance = minPoint.distance(entry.getKey());
-                                double maxDistance = minPoint.distance(max.getKey());
-                                if (entryDistance > maxDistance) {
-                                    allEntriesToRemove.add(max);
-                                    max = entry;
-                                } else {
-                                    allEntriesToRemove.add(entry);
-                                }
-                            }
-                        }
+                        proceedTmpEntriesToRemove();
                     }
                     tmpEntriesToRemove.clear();
                 }
             }
             tmpEntriesToRemove.add(current);
         }
+        addRedundantToInner();
 
-        for (Map.Entry<Point2D, Double> entry : allEntriesToRemove) {
-            inner.put(entry.getKey(), entry.getValue());
+        return getCleanedUndefined(map);
+    }
+
+    private void proceedTmpEntriesToRemove() {
+        Map.Entry<Point2D, Double> max = null; // max distance point of this group
+        for (Map.Entry<Point2D, Double> entry : tmpEntriesToRemove) {
+            if (max == null) { // set max distance point of group if not set yet
+                max = entry;
+            } else { // find out max distance point of group and add the rest to allEntriesToRemove
+                double entryDistance = minPoint.distance(entry.getKey());
+                double maxDistance = minPoint.distance(max.getKey());
+                if (entryDistance > maxDistance) {
+                    allEntriesToRemove.add(max);
+                    max = entry;
+                } else {
+                    allEntriesToRemove.add(entry);
+                }
+            }
         }
+    }
+    
+    private void addRedundantToInner() {
+        for (Map.Entry<Point2D, Double> entry : this.allEntriesToRemove)
+            inner.put(entry.getKey(), entry.getValue());
+    }
 
+    private Map<Point2D, Double> getCleanedUndefined(Map<Point2D, Double> map) {
         return map.entrySet()
                 .stream()
-                .filter(x -> !allEntriesToRemove.contains(x))
+                .filter(x -> !this.allEntriesToRemove.contains(x))
                 .sorted(Map.Entry.comparingByValue())
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
     }
