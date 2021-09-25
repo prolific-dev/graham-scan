@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 public class PreScan {
     Map<Point2D, Double> undefined;
     Map<Point2D, Double> inner;
-    Stack<Map.Entry<Point2D, Double>> outer;
     Point2D minPoint;
 
     List<Map.Entry<Point2D, Double>> tmpEntriesToRemove;
@@ -17,7 +16,6 @@ public class PreScan {
 
     public PreScan(Map<Point2D, Double> anglePointMap) {
         this.inner = new LinkedHashMap<>();
-        this.outer = new Stack<>();
         this.undefined = sortByAngleAndPreFeedInner(anglePointMap);
     }
 
@@ -86,10 +84,6 @@ public class PreScan {
 
     public Map<Point2D, Double> getInner() {
         return this.inner;
-    }
-
-    public Stack<Map.Entry<Point2D, Double>> getOuter() {
-        return this.outer;
     }
 
     public Point2D getMinPoint() {

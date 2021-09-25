@@ -14,8 +14,8 @@ public class GrahamScan {
 
     public GrahamScan(Map<Point2D, Double> anglePointMap) {
         PreScan preScan = new PreScan(anglePointMap);
+        this.outer = new Stack<>();
         this.inner = preScan.getInner();
-        this.outer = preScan.getOuter();
         this.undefined = preScan.getUndefined();
         this.minPoint = preScan.getMinPoint();
     }
