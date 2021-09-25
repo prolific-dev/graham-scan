@@ -2,21 +2,24 @@ package model;
 
 import javafx.geometry.Point2D;
 
+import java.util.Collections;
 import java.util.Map;
+import java.util.Set;
 import java.util.Stack;
+import java.util.stream.Collectors;
 
 
 public class GrahamScan {
-    Map<Point2D, Double> undefined;
     Map<Point2D, Double> inner;
+    Stack<Map.Entry<Point2D, Double>> undefined;
     Stack<Map.Entry<Point2D, Double>> outer;
     Point2D minPoint;
 
     public GrahamScan(Map<Point2D, Double> anglePointMap) {
         PreScan preScan = new PreScan(anglePointMap);
+        this.undefined = mapToStack(preScan.getUndefined());
         this.outer = new Stack<>();
         this.inner = preScan.getInner();
-        this.undefined = preScan.getUndefined();
         this.minPoint = preScan.getMinPoint();
     }
 
@@ -24,9 +27,10 @@ public class GrahamScan {
         return null;
     }
 
-    /*
-    private void addMapToStack(Map<Point2D, Double> anglePointMap) {
-        Set<Map.Entry<Point2D, Double>> set = anglePointMap.entrySet();
+
+    private Stack<Map.Entry<Point2D, Double>> mapToStack(Map<Point2D, Double> undefinedMap) {
+        Set<Map.Entry<Point2D, Double>> set = undefinedMap.entrySet();
+        Stack<Map.Entry<Point2D, Double>> stack = new Stack<>();
 
         set.stream()
                 .collect(Collectors.collectingAndThen(Collectors.toList(),
@@ -34,13 +38,16 @@ public class GrahamScan {
                             Collections.reverse(lst);
                             return lst.stream();
                         }))
-                .forEach(entry -> this.undefined.push(entry));
-    }
-     */
+                .forEach(stack::push);
 
-    public Map<Point2D, Double> getUndefined() {
+        return stack;
+    }
+
+
+    public Stack<Map.Entry<Point2D, Double>> getUndefined() {
         return this.undefined;
     }
+
 
     public Map<Point2D, Double> getInner() {
         return this.inner;

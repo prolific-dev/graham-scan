@@ -67,7 +67,7 @@ public class Test {
         // System.out.println(grahamScan.getOuter());
         System.out.println("");
 
-        grahamScan.getUndefined().forEach((key, value) -> System.out.println(value));
+        // **** grahamScan.getUndefined().forEach((key, value) -> System.out.println(value));
 
         System.out.println("");
 
