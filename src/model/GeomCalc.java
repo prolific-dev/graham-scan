@@ -15,7 +15,8 @@ public class GeomCalc {
 
 
     public GeomCalc(List<Point2D> input) {
-        this.dataList = normalizeInput(input);
+        //this.dataList = normalizeInput(input);
+        this.dataList = input;
         this.minPoint = minPointCalc();
         this.angleDataMap = mapAngleData();
 

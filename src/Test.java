@@ -62,6 +62,7 @@ public class Test {
 
         GrahamScan grahamScan = new GrahamScan(geomCalc.getAngleDataMap());
 
+        System.out.print("Stack:");
         System.out.println(grahamScan.getUndefined());
         System.out.println("");
         // System.out.println(grahamScan.getOuter());
@@ -70,14 +71,27 @@ public class Test {
         // **** grahamScan.getUndefined().forEach((key, value) -> System.out.println(value));
 
         System.out.println("");
-
+        System.out.print("Stack-Size: ");
         System.out.println(grahamScan.getUndefined().size());
-
+        System.out.println("");
+        System.out.print("Inner: ");
         System.out.println(grahamScan.getInner());
         System.out.println("");
-
+        System.out.println(grahamScan.getUndefined().peek());
         System.out.println("");
 
+        Point2D a = new Point2D(1, 1);
+        Point2D b = new Point2D(4, 4);
+        Point2D c = new Point2D(3, 3);
 
+        System.out.println(grahamScan.direction(a, b, c));
+        System.out.println("");
+        System.out.println("");
+
+        grahamScan.graham();
+
+        System.out.println(grahamScan.getUndefined());
+        System.out.println(grahamScan.getInner());
+        System.out.println(grahamScan.getOuter());
     }
 }
