@@ -81,16 +81,16 @@ public class GeomCalc {
     }
 
     private Double getAngleFromMinpoint(Point2D center, Point2D target) {
+        // calculate angle theta
         double theta = Math.atan2(target.getY() - center.getY(), target.getX() - center.getX());
-
+        // rotate theta clockwise by 90 degrees
         theta += Math.PI / 2.0;
-
+        // convert from radians to degrees
         double angle = Math.toDegrees(theta);
-
+        // convert to positive range [0-360)
         if (angle < 0) {
             angle += 360;
         }
-
         return angle;
     }
 
