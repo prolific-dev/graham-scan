@@ -24,9 +24,10 @@ public class Converter {
         Set<Point2D> dataSet = new HashSet<>();
 
         while ((currentString = bufferedReader.readLine()) != null) {
-            if (currentString.matches("[1-9][0-9]*, [1-9][0-9]*")) {
-                double x = Double.parseDouble(String.valueOf(currentString.charAt(0)));
-                double y = Double.parseDouble(String.valueOf(currentString.charAt(3)));
+            if (currentString.matches("[1-9][0-9]*,\\s?[1-9][0-9]*")) {
+                String[] split = currentString.replaceAll(" ", "").split(",");
+                double x = Double.parseDouble(String.valueOf(split[0].toCharArray()));
+                double y = Double.parseDouble(String.valueOf(split[1].toCharArray()));
                 Point2D point2D = new Point2D(x, y);
                 dataSet.add(point2D);
             } else {
@@ -34,7 +35,7 @@ public class Converter {
                         + currentString
                         + "' has wrong formatting."
                         + " Check if data is in the right regex structure"
-                        + " ([1-9][0-9]*, [1-9][0-9]*)."
+                        + " ([1-9][0-9]*,\\s?[1-9][0-9]*)."
                         + " Correct and restart"
                         + " program to put data into list.");
             }
