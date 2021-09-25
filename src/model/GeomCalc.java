@@ -75,9 +75,23 @@ public class GeomCalc {
 
         map.put(minPoint, 0.0);
         dataList.remove(minPoint);
-        dataList.forEach(p -> map.put(p, minPoint.angle(p)));
+        dataList.forEach(p -> map.put(p, getAngleFromMinpoint(minPoint, p)));
 
         return map;
+    }
+
+    private Double getAngleFromMinpoint(Point2D center, Point2D target) {
+        double theta = Math.atan2(target.getY() - center.getY(), target.getX() - center.getX());
+
+        theta += Math.PI / 2.0;
+
+        double angle = Math.toDegrees(theta);
+
+        if (angle < 0) {
+            angle += 360;
+        }
+
+        return angle;
     }
 
     public List<Point2D> getDataList() {
