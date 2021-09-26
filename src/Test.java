@@ -88,7 +88,7 @@ public class Test {
         System.out.println("");
         System.out.println("");
 
-        grahamScan.graham();
+        //grahamScan.graham();
 
         System.out.println(grahamScan.getUndefined());
         System.out.println(grahamScan.getInner());

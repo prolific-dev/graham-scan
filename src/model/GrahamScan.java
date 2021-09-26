@@ -21,9 +21,10 @@ public class GrahamScan {
         this.outer = new Stack<>();
         this.inner = preScan.getInner();
         this.minPoint = preScan.getMinPoint();
+        graham();
     }
 
-    public void graham() {
+    private void graham() {
         // Minpoint to Hull
         outer.push(undefined.pop());
 
