@@ -45,7 +45,7 @@
       </VBox>
    </top>
    <center>
-       <LineChart fx:id="linechart" prefWidth="623.0" BorderPane.alignment="CENTER">
+       <LineChart fx:id="lineChart" prefWidth="623.0" BorderPane.alignment="CENTER">
            <xAxis>
                <CategoryAxis side="BOTTOM"/>
            </xAxis>
