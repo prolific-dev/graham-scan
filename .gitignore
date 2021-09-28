@@ -6,7 +6,7 @@
 
 # IntelliJ files and directories
 /.idea/
-
+/screenshots/
 
 # BlueJ files
 *.ctxt
