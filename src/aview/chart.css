@@ -1,31 +1,10 @@
 .default-color0.chart-series-line {
     -fx-stroke: transparent;
-    -fx-stroke-width: 2px;
 }
 
 .default-color1.chart-series-line {
-    -fx-stroke: blue;
-    -fx-stroke-width: 2px;
+    -fx-stroke: transparent;
 }
 
-.default-color0.chart-line-symbol {
-    -fx-background-color: white, blue;
-    -fx-background-radius: 0;
-    -fx-scale-x: 0.65;
-    -fx-scale-y: 0.65;
-}
 
-.default-color1.chart-line-symbol {
-    -fx-background-color: blue, blue;
-    -fx-background-radius: 0;
-    -fx-scale-x: 0.65;
-    -fx-scale-y: 0.75;
-}
 
-.default-color0.chart-legend-item-symbol {
-    -fx-background-color: white, blue;
-}
-
-.default-color1.chart-legend-item-symbol {
-    -fx-background-color: blue, blue;
-}

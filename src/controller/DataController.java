@@ -31,7 +31,8 @@ public class DataController {
         XYChart.Series<Number, Number> seriesHull = new XYChart.Series<>();
 
         if (seriesInner.getData().isEmpty()) {
-            seriesInner.setName("inner series");
+            seriesInner.setName("inner");
+            seriesHull.setName("hull");
 
             for (Point2D p : myData.getInnerList()) {
                 seriesInner.getData().add(new XYChart.Data<>(p.getX(), p.getY()));
