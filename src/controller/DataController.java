@@ -7,17 +7,18 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
-import model.Converter;
-import model.GeomCalc;
-import model.GrahamScan;
+import model.MyData;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class DataController {
+    @FXML
+    private NumberAxis xAxis;
+
+    @FXML
+    private NumberAxis yAxis;
+
     @FXML
     private LineChart<Number, Number> lineChart;
 
@@ -25,48 +26,27 @@ public class DataController {
     private Button button;
 
     public void initialize(ActionEvent e) throws IOException {
-        Converter converter = new Converter(new File("src/data/data.txt"));
-        GeomCalc geomCalc = new GeomCalc(converter.getInput());
-        GrahamScan grahamScan = new GrahamScan(geomCalc.getAngleDataMap());
+        MyData myData = new MyData(new File("src/data/data.txt"));
+        XYChart.Series<Number, Number> seriesInner = new XYChart.Series<>();
+        XYChart.Series<Number, Number> seriesHull = new XYChart.Series<>();
 
-        NumberAxis xAxis = new NumberAxis("x-Achse", 0.0, 10.0, 1);
-        NumberAxis yAxis = new NumberAxis("y-Achse", 0.0, 10.0, 1);
+        if (seriesInner.getData().isEmpty()) {
+            seriesInner.setName("inner series");
 
-        lineChart = new LineChart<>(xAxis, yAxis);
+            for (Point2D p : myData.getInnerList()) {
+                seriesInner.getData().add(new XYChart.Data<>(p.getX(), p.getY()));
+            }
 
-        XYChart.Series<Number, Number> inner = new XYChart.Series<>();
-        XYChart.Series<Number, Number> outer = new XYChart.Series<>();
+            for (Point2D p : myData.getHullList()) {
+                seriesHull.getData().add(new XYChart.Data<>(p.getX(), p.getY()));
+            }
 
-        inner.setName("Inner");
-        outer.setName("Hull");
+            lineChart.getData().add(seriesInner);
+            lineChart.getData().add(seriesHull);
+            lineChart.setLegendVisible(true);
+            lineChart.setCreateSymbols(true);
 
-        List<Point2D> innerList = new ArrayList<>();
-        List<Point2D> outerList = new ArrayList<>();
-
-        for (Map.Entry<Point2D, Double> entry : grahamScan.getInner().entrySet()) {
-            innerList.add(entry.getKey());
+            System.out.println("initialize");
         }
-
-        for (Map.Entry<Point2D, Double> entry : grahamScan.getOuter()) {
-            outerList.add(entry.getKey());
-        }
-
-        for (Point2D p : innerList) {
-            inner.getData().add(new XYChart.Data<>(p.getX(), p.getY()));
-        }
-
-        for (Point2D p : outerList) {
-            outer.getData().add(new XYChart.Data<>(p.getX(), p.getY()));
-        }
-
-        lineChart.getData().add(inner);
-        lineChart.getData().add(outer);
-
-        lineChart.setAnimated(false);
-        lineChart.setCreateSymbols(true);
-        lineChart.setAxisSortingPolicy(LineChart.SortingPolicy.NONE);
-        lineChart.setLegendVisible(true);
-
-        System.out.println("initialize");
     }
 }

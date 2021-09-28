@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
@@ -18,16 +17,16 @@
 <?import javafx.scene.text.Text?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="530.0" minWidth="800.0" prefHeight="530.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DataController">
-   <top>
-      <VBox prefHeight="114.0" prefWidth="800.0" spacing="10.0" BorderPane.alignment="CENTER">
-         <children>
-            <MenuBar>
-              <menus>
-                <Menu mnemonicParsing="false" text="File">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
-                  </items>
-                </Menu>
+    <top>
+        <VBox prefHeight="114.0" prefWidth="800.0" spacing="10.0" BorderPane.alignment="CENTER">
+            <children>
+                <MenuBar>
+                    <menus>
+                        <Menu mnemonicParsing="false" text="File">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Close" />
+                            </items>
+                        </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
                   <items>
                     <MenuItem mnemonicParsing="false" text="Delete" />
@@ -52,14 +51,14 @@
       </VBox>
    </top>
    <center>
-      <LineChart fx:id="linechart" prefWidth="623.0" BorderPane.alignment="CENTER">
-        <xAxis>
-          <CategoryAxis side="BOTTOM" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis side="LEFT" />
-        </yAxis>
-      </LineChart>
+       <LineChart fx:id="lineChart" prefWidth="623.0" BorderPane.alignment="CENTER">
+           <xAxis>
+               <NumberAxis label="x-Axis" side="BOTTOM" upperBound="1.0" fx:id="xAxis" />
+           </xAxis>
+           <yAxis>
+               <NumberAxis fx:id="yAxis" label="y-Axis" side="LEFT" upperBound="1.0" />
+           </yAxis>
+       </LineChart>
    </center>
    <left>
       <Region prefHeight="368.0" prefWidth="60.0" BorderPane.alignment="CENTER" />
@@ -73,28 +72,28 @@
    </right>
    <bottom>
       <VBox prefHeight="70.0" prefWidth="800.0" BorderPane.alignment="CENTER">
-         <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Region prefHeight="25.0" prefWidth="592.0" />
-                  <Button fx:id="button" mnemonicParsing="false" onAction="#initialize" prefHeight="25.0" prefWidth="198.0" text="Initialize" />
-               </children>
-            </HBox>
-            <Region prefHeight="200.0" prefWidth="800.0" />
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="2.0">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Visit project code on">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Text>
-                  <Hyperlink text="GitHub">
-                     <padding>
+          <children>
+              <HBox prefHeight="100.0" prefWidth="200.0">
+                  <children>
+                      <Region prefHeight="25.0" prefWidth="592.0" />
+                      <Button fx:id="button" mnemonicParsing="false" onAction="#initialize" prefHeight="25.0" prefWidth="198.0" text="Initialize" />
+                  </children>
+              </HBox>
+              <Region prefHeight="200.0" prefWidth="800.0" />
+              <HBox prefHeight="100.0" prefWidth="200.0" spacing="2.0">
+                  <children>
+                      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Visit project code on">
+                          <HBox.margin>
+                              <Insets left="10.0" />
+                          </HBox.margin>
+                      </Text>
+                      <Hyperlink text="GitHub">
+                          <padding>
                         <Insets bottom="10.0" />
                      </padding>
                   </Hyperlink>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="." />
-                  <Region prefHeight="29.0" prefWidth="462.0" />
+                      <Region prefHeight="29.0" prefWidth="462.0" />
                </children>
             </HBox>
          </children>

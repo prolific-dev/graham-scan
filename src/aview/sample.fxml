@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.*?>
@@ -45,12 +44,12 @@
       </VBox>
    </top>
    <center>
-       <LineChart fx:id="lineChart" prefWidth="623.0" BorderPane.alignment="CENTER">
+       <LineChart fx:id="lineChart" prefWidth="623.0" stylesheets="@chart.css" BorderPane.alignment="CENTER">
            <xAxis>
-               <CategoryAxis side="BOTTOM"/>
+               <NumberAxis label="x-Axis" side="BOTTOM" upperBound="1.0" fx:id="xAxis"/>
            </xAxis>
            <yAxis>
-               <NumberAxis side="LEFT"/>
+               <NumberAxis fx:id="yAxis" label="y-Axis" side="LEFT" upperBound="1.0"/>
            </yAxis>
        </LineChart>
    </center>
