@@ -1,18 +1,17 @@
-package controller;
+package com.prolificdev.controllers;
 
-import javafx.event.ActionEvent;
+import java.io.File;
+import java.io.IOException;
+
+import com.prolificdev.App;
+import com.prolificdev.models.MyData;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import model.MyData;
 
-import java.io.File;
-import java.io.IOException;
-
-public class DataController {
+public class SecondaryController {
     @FXML
     private NumberAxis xAxis;
 
@@ -23,10 +22,13 @@ public class DataController {
     private LineChart<Number, Number> lineChart;
 
     @FXML
-    private Button button;
+    private void switchToPrimary() throws IOException {
+        App.setRoot("primary");
+    }
 
-    public void initialize(ActionEvent e) throws IOException {
-        MyData myData = new MyData(new File("src/data/data.txt"));
+    @FXML
+    private void initialize() throws IOException {
+        MyData myData = new MyData(new File("src/main/resources/com/prolificdev/data/data.txt"));
         XYChart.Series<Number, Number> seriesInner = new XYChart.Series<>();
         XYChart.Series<Number, Number> seriesHull = new XYChart.Series<>();
 
