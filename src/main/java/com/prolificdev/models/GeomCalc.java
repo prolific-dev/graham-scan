@@ -13,13 +13,6 @@ public class GeomCalc {
     private final List<Point2D> dataList;
     private final Map<Point2D, Double> angleDataMap;
 
-    public GeomCalc() {
-        this.minPoint = null;
-        this.dataList = null;
-        this.angleDataMap = null;
-    }
-
-
     public GeomCalc(List<Point2D> input) {
         //this.dataList = normalizeInput(input);
         this.dataList = input;
