@@ -1,3 +1,5 @@
+[![Build Status](https://app.travis-ci.com/prolific-dev/graham-scan.svg?branch=main)](https://app.travis-ci.com/prolific-dev/graham-scan)
+
 # graham-grahamScan
 
 Project files are still in progress and only public because of VCS and sharing purpose...
