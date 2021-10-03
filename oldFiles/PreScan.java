@@ -1,4 +1,4 @@
-package com.prolificdev.models;
+package com.prolificdev.util;
 
 import javafx.geometry.Point2D;
 

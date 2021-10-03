@@ -1,49 +1,50 @@
 package com.prolificdev.models;
 
-import javafx.geometry.Point2D;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class Converter {
-    private final Set<Point2D> input;
+    private static final String VALID_REGEX_FORMAT = "[1-9][0-9]*,\\s?[1-9][0-9]*";
+    private final Set<Point> convertedDataSet;
+    private final Set<String> invalidDataSet;
 
-    public Converter(File file) throws IOException {
-        this.input = convertData(file);
+    protected Converter(File file) throws IOException {
+        this.invalidDataSet = new HashSet<>();
+        this.convertedDataSet = convertFileToDataSet(file);
     }
 
-    private Set<Point2D> convertData(File file) throws IOException {
-        String currentString;
+    private Set<Point> convertFileToDataSet(File file) throws IOException {
+        Set<Point> convertedDataSet = new LinkedHashSet<>();
         BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-        Set<Point2D> dataSet = new HashSet<>();
+        String singleDataString;
 
-        while ((currentString = bufferedReader.readLine()) != null) {
-            if (currentString.matches("[1-9][0-9]*,\\s?[1-9][0-9]*")) {
-                String[] split = currentString.replaceAll(" ", "").split(",");
-                double x = Double.parseDouble(String.valueOf(split[0].toCharArray()));
-                double y = Double.parseDouble(String.valueOf(split[1].toCharArray()));
-                Point2D point2D = new Point2D(x, y);
-                dataSet.add(point2D);
+        while ((singleDataString = bufferedReader.readLine()) != null) {
+            if (singleDataString.matches(VALID_REGEX_FORMAT)) {
+                convertedDataSet.add(formPointOutOfString(singleDataString));
             } else {
-                System.err.println("Data String '"
-                        + currentString
-                        + "' has wrong formatting."
-                        + " Check if data is in the right regex structure"
-                        + " ([1-9][0-9]*,\\s?[1-9][0-9]*)."
-                        + " Correct and restart"
-                        + " program to put data into list.");
+                this.invalidDataSet.add(singleDataString);
             }
         }
-        return dataSet;
+        return convertedDataSet;
     }
 
-    public List<Point2D> getInput() {
-        return new ArrayList<>(this.input);
+    private Point formPointOutOfString(String singleDataString) {
+        String[] splittedDataString = singleDataString.replaceAll(" ", "").split(",");
+        double x = Double.parseDouble(String.valueOf(splittedDataString[0].toCharArray()));
+        double y = Double.parseDouble(String.valueOf(splittedDataString[1].toCharArray()));
+        return new Point(x, y);
+    }
+
+    public Set<Point> getConvertedDataSet() {
+        return this.convertedDataSet;
+    }
+
+    public Set<String> getInvalidDataSet() {
+        return this.invalidDataSet;
     }
 }

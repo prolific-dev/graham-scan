@@ -1,13 +1,12 @@
-package com.prolificdev.models;
+package com.prolificdev.util;
 
+import com.prolificdev.models.Converter;
+import com.prolificdev.models.Point;
 import javafx.geometry.Point2D;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
 
 
 public class MyData {
@@ -21,8 +20,8 @@ public class MyData {
 
     }
 
-    private List<Point2D> getConverterData(File file) throws IOException {
-        return new Converter(file).getInput();
+    private Set<Point> getConverterData(File file) throws IOException {
+        return new Converter(file).getConvertedDataSet();
     }
 
     private Map<Point2D, Double> getGeomCalcData(List<Point2D> point2DList) {
