@@ -3,4 +3,6 @@ language: java
 script:
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
   - mvn test -B
+
+after_success:
   - mvn clean cobertura:cobertura coveralls:report
