@@ -9,7 +9,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class Converter {
-    private static final String VALID_REGEX_FORMAT = "[1-9][0-9]*,\\s?[1-9][0-9]*";
+    private static final String VALID_REGEX_FORMAT = "(0|[1-9][0-9]*),\\s?(0|[1-9][0-9]*)";
     private final Set<Point> convertedDataSet;
     private final Set<String> invalidDataSet;
 

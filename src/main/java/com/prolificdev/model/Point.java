@@ -1,6 +1,8 @@
 package com.prolificdev.model;
 
 public class Point {
+    private static final int THREESIXTY = 360;
+
     private final double x;
     private final double y;
 
@@ -24,7 +26,7 @@ public class Point {
         theta += Math.PI / 2.0;
         angle = Math.toDegrees(theta);
         if (angle < 0)
-            angle += 360;
+            angle += THREESIXTY;
         return angle;
     }
 
@@ -42,5 +44,22 @@ public class Point {
     @Override
     public int hashCode() {
         return Double.valueOf(this.x).hashCode() * 31 + Double.valueOf(this.y).hashCode();
+    }
+
+    public int location(Point p1, Point p2) {
+        double x1 = p2.getX() - p1.getX();
+        double y1 = p2.getY() - p1.getY();
+        double x2 = this.getX() - p1.getX();
+        double y2 = this.getY() - p1.getY();
+
+        double crossproduct = x1 * y2 - y1 * x2;
+
+        if (crossproduct > 0) {
+            return 1; // located right of vector
+        } else if (crossproduct < 0) {
+            return -1; // located left of vector
+        } else {
+            return 0; // located on top of vector
+        }
     }
 }
