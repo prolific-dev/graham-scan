@@ -1,7 +1,7 @@
 package com.prolificdev.util;
 
-import com.prolificdev.models.Converter;
-import com.prolificdev.models.Point;
+import com.prolificdev.model.Converter;
+import com.prolificdev.model.Point;
 import javafx.geometry.Point2D;
 
 import java.io.File;

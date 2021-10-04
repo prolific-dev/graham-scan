@@ -1,4 +1,4 @@
-package com.prolificdev.models;
+package com.prolificdev.model;
 
 import org.junit.jupiter.api.Test;
 

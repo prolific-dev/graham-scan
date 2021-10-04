@@ -1,4 +1,4 @@
-package com.prolificdev.controllers;
+package com.prolificdev.controller;
 
 import com.prolificdev.App;
 import javafx.fxml.FXML;

@@ -1,4 +1,4 @@
-package com.prolificdev.models;
+package com.prolificdev.model;
 
 public class Point {
     private final double x;

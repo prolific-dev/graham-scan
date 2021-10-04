@@ -1,9 +1,9 @@
-package com.prolificdev.controllers;
-
-import java.io.IOException;
+package com.prolificdev.controller;
 
 import com.prolificdev.App;
 import javafx.fxml.FXML;
+
+import java.io.IOException;
 
 public class PrimaryController {
 
