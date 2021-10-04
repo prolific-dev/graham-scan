@@ -1,10 +1,14 @@
 package com.prolificdev.controller;
 
 import com.prolificdev.App;
+import com.prolificdev.model.GrahamScan;
+import com.prolificdev.model.Point;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 
+import java.io.File;
 import java.io.IOException;
 
 public class SecondaryController {
@@ -24,8 +28,8 @@ public class SecondaryController {
 
     @FXML
     private void initialize() throws IOException {
-        /*
-        MyData myData = new MyData(new File("src/main/resources/com/prolificdev/data/data.txt"));
+        GrahamScan grahamScan = new GrahamScan(new File("src/test/resources/com/prolificdev/data/grahamscan_test_data.txt"));
+
         XYChart.Series<Number, Number> seriesInner = new XYChart.Series<>();
         XYChart.Series<Number, Number> seriesHull = new XYChart.Series<>();
 
@@ -33,11 +37,11 @@ public class SecondaryController {
             seriesInner.setName("inner");
             seriesHull.setName("hull");
 
-            for (Point2D p : myData.getInnerList()) {
+            for (Point p : grahamScan.getInnerPoints()) {
                 seriesInner.getData().add(new XYChart.Data<>(p.getX(), p.getY()));
             }
 
-            for (Point2D p : myData.getHullList()) {
+            for (Point p : grahamScan.getConvexHull()) {
                 seriesHull.getData().add(new XYChart.Data<>(p.getX(), p.getY()));
             }
 
@@ -46,11 +50,7 @@ public class SecondaryController {
             lineChart.setLegendVisible(true);
             lineChart.setCreateSymbols(true);
 
-
-
             System.out.println("initialize");
         }
-
-         */
     }
 }
