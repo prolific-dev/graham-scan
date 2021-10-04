@@ -15,15 +15,6 @@ public class PreScan {
         this.undefinedPointMap = removeInnerPointsFromUndefined();
     }
 
-    private Map<Point, Double> removeInnerPointsFromUndefined() {
-        return this.undefinedPointMap
-                .entrySet()
-                .stream()
-                .filter(x -> !this.innerPointList.contains(x.getKey()))
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
-    }
-
-
     private List<Point> preFeedInnerPointMap(Map<Point, Double> pointAngleMap) {
         List<Point> finalEntriesToRemove = new ArrayList<>();
         List<Map.Entry<Point, Double>> tmpEntriesToRemove = new ArrayList<>();
@@ -52,7 +43,6 @@ public class PreScan {
 
     private List<Point> sortOutTmpEntriesToFinalEntries(Point startingPoint, List<Point> finalEntriesToRemove,
                                                         List<Map.Entry<Point, Double>> tmpEntriesToRemove) {
-
         Map.Entry<Point, Double> max = null;
 
         for (Map.Entry<Point, Double> entry : tmpEntriesToRemove) {
@@ -72,8 +62,12 @@ public class PreScan {
         return finalEntriesToRemove;
     }
 
-    private double getCurrentEntryGroupAngle(List<Map.Entry<Point, Double>> tmpEntriesToRemove) {
-        return tmpEntriesToRemove.get(0).getValue();
+    private Map<Point, Double> removeInnerPointsFromUndefined() {
+        return this.undefinedPointMap
+                .entrySet()
+                .stream()
+                .filter(x -> !this.innerPointList.contains(x.getKey()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
     }
 
     private Map<Point, Double> sortPointMapByAngle(Map<Point, Double> pointAngleMap) {
@@ -81,6 +75,10 @@ public class PreScan {
                 .stream()
                 .sorted(Map.Entry.comparingByValue())
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
+    }
+
+    private double getCurrentEntryGroupAngle(List<Map.Entry<Point, Double>> tmpEntriesToRemove) {
+        return tmpEntriesToRemove.get(0).getValue();
     }
 
     public Map<Point, Double> getUndefinedPointMap() {

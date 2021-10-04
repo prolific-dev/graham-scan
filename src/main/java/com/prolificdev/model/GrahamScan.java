@@ -50,11 +50,6 @@ public class GrahamScan {
         }
     }
 
-    private boolean locatedOnConvexHull(Map.Entry<Point, Double> pointToCheck, Map.Entry<Point, Double> lastPointFromHull, Map.Entry<Point, Double> nextPoint) {
-        return pointToCheck.getKey().location(lastPointFromHull.getKey(), nextPoint.getKey()) <= 0;
-    }
-
-
     private Stack<Map.Entry<Point, Double>> pushPreScanDataToStack(Map<Point, Double> undefinedPointMap) {
         Stack<Map.Entry<Point, Double>> stack = new Stack<>();
         undefinedPointMap.entrySet()
@@ -67,8 +62,8 @@ public class GrahamScan {
         return stack;
     }
 
-    public Stack<Map.Entry<Point, Double>> getUndefinedPointStack() {
-        return this.undefinedPointStack;
+    private boolean locatedOnConvexHull(Map.Entry<Point, Double> pointToCheck, Map.Entry<Point, Double> lastPointFromHull, Map.Entry<Point, Double> nextPoint) {
+        return pointToCheck.getKey().location(lastPointFromHull.getKey(), nextPoint.getKey()) <= 0;
     }
 
     public List<Point> getConvexHull() {
@@ -76,6 +71,10 @@ public class GrahamScan {
                 .stream()
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
+    }
+
+    public Stack<Map.Entry<Point, Double>> getUndefinedPointStack() {
+        return this.undefinedPointStack;
     }
 
     public List<Point> getInnerPoints() {

@@ -19,15 +19,6 @@ public class PreCalculation {
         this.pointAngleMap = calcAngleToStartingPointMap(dataList);
     }
 
-    private Map<Point, Double> calcAngleToStartingPointMap(List<Point> dataList) {
-        Map<Point, Double> tmpPointAngleToStartingPointMap = new HashMap<>();
-
-        tmpPointAngleToStartingPointMap.put(this.startingPoint, 0.0);
-        dataList.remove(this.startingPoint);
-        dataList.forEach(point -> tmpPointAngleToStartingPointMap.put(point, point.angle(this.startingPoint)));
-        return tmpPointAngleToStartingPointMap;
-    }
-
     private Point setStartingPointByDistanceToZeroPoint(List<Point> dataList) {
         Point tmpStartingPoint = dataList.get(0);
         double tmpDistance = tmpStartingPoint.distance(ZERO_POINT);
@@ -42,6 +33,15 @@ public class PreCalculation {
                 tmpStartingPoint = setStartingPointByXYAxis(tmpStartingPoint, point);
         }
         return tmpStartingPoint;
+    }
+
+    private Map<Point, Double> calcAngleToStartingPointMap(List<Point> dataList) {
+        Map<Point, Double> tmpPointAngleToStartingPointMap = new HashMap<>();
+
+        tmpPointAngleToStartingPointMap.put(this.startingPoint, 0.0);
+        dataList.remove(this.startingPoint);
+        dataList.forEach(point -> tmpPointAngleToStartingPointMap.put(point, point.angle(this.startingPoint)));
+        return tmpPointAngleToStartingPointMap;
     }
 
     private Point setStartingPointByXYAxis(Point tmpStartingPoint, Point point) {
