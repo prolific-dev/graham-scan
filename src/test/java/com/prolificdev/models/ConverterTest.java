@@ -11,12 +11,10 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 public class ConverterTest {
 
     @Test
-    void shouldThrowFileNotFoundException() throws IOException {
+    void shouldThrowFileNotFoundException() {
         File file = new File("src/test/resources/com/prolificdev/data/imaginary_test_data.txt");
 
-        assertThatExceptionOfType(IOException.class).isThrownBy(() -> {
-            new Converter(file);
-        });
+        assertThatExceptionOfType(IOException.class).isThrownBy(() -> new Converter(file));
     }
 
     @Test

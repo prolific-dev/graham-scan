@@ -13,12 +13,10 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 public class PreCalculationTest {
 
     @Test
-    void shouldThrowFileNotFoundException() throws IOException {
+    void shouldThrowFileNotFoundException() {
         File file = new File("src/test/resources/com/prolificdev/data/imaginary_test_data.txt");
 
-        assertThatExceptionOfType(IOException.class).isThrownBy(() -> {
-            new PreCalculation(file);
-        });
+        assertThatExceptionOfType(IOException.class).isThrownBy(() -> new PreCalculation(file));
     }
 
     @Test
