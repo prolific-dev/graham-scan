@@ -53,6 +53,8 @@ public class GrahamScanTest {
         comparisonList.add(new Point(4, 3));
         comparisonList.add(new Point(3, 2));
 
+        assertThat(grahamScan.getUndefinedPointStack()).isEmpty();
+
         assertThat(grahamScan.getInnerPoints())
                 .isNotEmpty()
                 .hasSize(3)
