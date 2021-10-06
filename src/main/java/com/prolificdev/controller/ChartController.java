@@ -5,17 +5,22 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
 
 import java.io.File;
 import java.io.IOException;
 
 public class ChartController {
+    private File file;
     private final XYChart.Series<Number, Number> innerSeries = new XYChart.Series<>();
     private final XYChart.Series<Number, Number> convexHullSeries = new XYChart.Series<>();
-    private File file;
+
+    @FXML
+    public Button initializeButton;
 
     @FXML
     private LineChart<Number, Number> lineChart;
+
 
     @FXML
     public void initializeChart(ActionEvent event) throws IOException {
@@ -35,5 +40,21 @@ public class ChartController {
             lineChart.getData().add(this.convexHullSeries);
             lineChart.setLegendVisible(true);
         }
+    }
+
+    public File getFile() {
+        return this.file;
+    }
+
+    public XYChart.Series<Number, Number> getInnerSeries() {
+        return this.innerSeries;
+    }
+
+    public XYChart.Series<Number, Number> getConvexHullSeries() {
+        return this.convexHullSeries;
+    }
+
+    public LineChart<Number, Number> getLineChart() {
+        return this.lineChart;
     }
 }
