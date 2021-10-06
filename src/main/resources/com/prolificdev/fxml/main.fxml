@@ -5,7 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171"
-      fx:controller="com.prolificdev.controller.PrimaryController">
+      fx:controller="com.prolificdev.controller.MainController">
    <children>
       <Label text="Primary View"/>
       <Button fx:id="primaryButton" text="Switch to Secondary View" onAction="#switchToSecondary"/>
