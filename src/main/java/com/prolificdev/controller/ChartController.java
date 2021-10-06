@@ -19,12 +19,12 @@ public class ChartController {
 
     @FXML
     public void initializeChart(ActionEvent event) throws IOException {
-        this.innerSeries.setName("Inner-Points");
-        this.convexHullSeries.setName("Convex-Hull");
-
         if (file == null) {
             this.file = new File("src/test/resources/com/prolificdev/data/grahamscan_test_data.txt");
             GrahamScan grahamScan = new GrahamScan(file);
+
+            this.innerSeries.setName("Inner-Points");
+            this.convexHullSeries.setName("Convex-Hull");
 
             grahamScan.getInnerPoints()
                     .forEach(p -> this.innerSeries.getData().add(new XYChart.Data<>(p.getX(), p.getY())));
