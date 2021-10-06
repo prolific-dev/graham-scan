@@ -1,10 +1,11 @@
 package com.prolificdev.controller;
 
+import com.prolificdev.App;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ChartControllerTest {
+public class ChartControllerTest extends App {
 
     @Test
     void shouldNotBeInitializedOnFirstAppear() {

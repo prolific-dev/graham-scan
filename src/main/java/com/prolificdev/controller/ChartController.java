@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +14,9 @@ public class ChartController {
     private File file;
     private final XYChart.Series<Number, Number> innerSeries = new XYChart.Series<>();
     private final XYChart.Series<Number, Number> convexHullSeries = new XYChart.Series<>();
+
+    @FXML
+    Button initializeButton;
 
     @FXML
     private LineChart<Number, Number> lineChart;
