@@ -39,15 +39,12 @@ jobs:
         run: |
           mvn clean package -Drevision=${{ github.sha }} -Dbranch=${{ github.ref_name }}
 
-      # Use Xvfb to simulate a display on Linux
-      - name: Start Xvfb on Linux
+      # Use GabrielBB/xvfb-action to simulate a display on Linux
+      - name: Run JavaFX on Linux with Xvfb
         if: runner.os == 'Linux'
-        run: |
-          sudo apt-get update
-          sudo apt-get install xvfb
-          Xvfb :99 -ac &
-          export DISPLAY=:99
-          xvfb-run mvn javafx:run -Drevision=${{ github.sha }} -Dbranch=${{ github.ref_name }}
+        uses: GabrielBB/xvfb-action@v1
+        with:
+          run: mvn javafx:run -Drevision=${{ github.sha }} -Dbranch=${{ github.ref_name }}
 
       - name: Run the application on Windows
         if: runner.os == 'Windows'
