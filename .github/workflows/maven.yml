@@ -35,24 +35,19 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Install at-spi2-core (Linux Only)
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y at-spi2-core
-
       - name: Build with Maven
         run: |
           mvn clean package -Drevision=${{ github.sha }} -Dbranch=${{ github.ref_name }}
 
-      # Use GabrielBB/xvfb-action to simulate a display on Linux
-      - name: Run JavaFX on Linux with Xvfb
+      # Use Xvfb to simulate a display on Linux
+      - name: Start Xvfb on Linux
         if: runner.os == 'Linux'
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: |
-            export NO_AT_BRIDGE=1  # Disable GTK accessibility warnings
-            mvn javafx:run -Drevision=${{ github.sha }} -Dbranch=${{ github.ref_name }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install xvfb
+          Xvfb :99 -ac &
+          export DISPLAY=:99
+          xvfb-run mvn javafx:run -Drevision=${{ github.sha }} -Dbranch=${{ github.ref_name }}
 
       - name: Run the application on Windows
         if: runner.os == 'Windows'
