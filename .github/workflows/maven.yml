@@ -59,8 +59,8 @@ jobs:
             --type exe `
             --app-version 0.0.1 `
             --main-class org.prolific.dev.App `
-            --module-path C:\Users\runneradmin\.m2\repository\org\openjfx\javafx-controls\17.0.12\javafx-controls-17.0.12.jar;C:\Users\runneradmin\.m2\repository\org\openjfx\javafx-fxml\17.0.12\javafx-fxml-17.0.12.jar `
-            --add-modules javafx.controls,javafx.fxml
+            --module-path C:\Users\runneradmin\.m2\repository\org\openjfx\javafx-controls\17.0.12\javafx-controls-17.0.12.jar;C:\Users\runneradmin\.m2\repository\org\openjfx\javafx-graphics\17.0.12\javafx-graphics-17.0.12.jar;C:\Users\runneradmin\.m2\repository\org\openjfx\javafx-base\17.0.12\javafx-base-17.0.12.jar;C:\Users\runneradmin\.m2\repository\org\openjfx\javafx-fxml\17.0.12\javafx-fxml-17.0.12.jar `
+            --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.base
 
       # Upload JAR artifact (Linux and Windows)
       - name: Upload JAR artifact
