@@ -39,15 +39,21 @@ jobs:
         run: |
           mvn clean package -Drevision=${{ github.sha }} -Dbranch=${{ github.ref_name }}
 
+      - name: Ensure no previous Xvfb instances
+        if: runner.os == 'Linux'
+        run: |
+          sudo pkill Xvfb || true
+
       # Use Xvfb to simulate a display on Linux
       - name: Start Xvfb and run tests on Linux
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
           sudo apt-get install -y xvfb xauth x11-utils
-          Xvfb :99 -screen 0 1920x1080x24 -ac &  # Start Xvfb on display :99
-          export DISPLAY=:99  # Set the display environment variable
-          sleep 3  # Wait a few seconds to ensure Xvfb starts properly
+          Xvfb :99 -screen 0 1920x1080x24 -ac &
+          sleep 5  # Give Xvfb some time to start
+          cat xvfb.log  # Check the log for Xvfb errors
+          export DISPLAY=:99
           xvfb-run mvn javafx:run -Drevision=${{ github.sha }} -Dbranch=${{ github.ref_name }}
 
       # Run the application on Windows
