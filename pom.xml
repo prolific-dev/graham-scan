@@ -87,6 +87,7 @@
             </activation>
             <properties>
                 <javafx.platform>linux</javafx.platform>
+                <java.awt.headless>true</java.awt.headless>
             </properties>
         </profile>
     </profiles>
