@@ -42,9 +42,9 @@ jobs:
       - name: Run the application on Linux
         if: runner.os == 'Linux'
         run: |
-          mvn javafx:run target/graham-scan-${{ github.sha }}-${{ github.ref_name }}
+          mvn javafx:run graham-scan-${{ github.sha }}-${{ github.ref_name }}
 
       - name: Run the application on Windows
         if: runner.os == 'Windows'
         run: |
-          mvn javafx:run target\graham-scan-${{ github.sha }}-${{ github.ref_name }}
+          mvn javafx:run graham-scan-${{ github.sha }}-${{ github.ref_name }}
