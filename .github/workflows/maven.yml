@@ -43,7 +43,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      # Build the JAR with Maven
+      # Build the JAR with Maven (includes JavaFX libraries using shade plugin)
       - name: Build with Maven
         run: mvn clean package -Drevision=${{ github.sha }} -Dbranch=${{ github.ref_name }}
 
@@ -58,13 +58,15 @@ jobs:
             --win-console `
             --type exe `
             --app-version 0.0.1 `
-            --main-class org.prolific.dev.App
+            --main-class org.prolific.dev.App `
+            --module-path C:\Users\runneradmin\.m2\repository\org\openjfx\javafx-controls\17.0.12\javafx-controls-17.0.12.jar;C:\Users\runneradmin\.m2\repository\org\openjfx\javafx-fxml\17.0.12\javafx-fxml-17.0.12.jar `
+            --add-modules javafx.controls,javafx.fxml
 
       # Upload JAR artifact (Linux and Windows)
       - name: Upload JAR artifact
         uses: actions/upload-artifact@v3
         with:
-          name: built-jar-${{ runner.os }}
+          name: Graham-Scan-JAR-${{ runner.os }}
           path: target/graham-scan-${{ github.sha }}-${{ github.ref_name }}.jar
 
       # Upload EXE artifact (Windows only)
@@ -72,5 +74,5 @@ jobs:
         if: runner.os == 'Windows'
         uses: actions/upload-artifact@v3
         with:
-          name: built-exe
+          name: Graham-Scan
           path: GrahamScan-0.0.1.exe
