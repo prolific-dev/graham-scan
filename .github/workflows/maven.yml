@@ -57,7 +57,7 @@ jobs:
             --name GrahamScan `
             --win-console `
             --type exe `
-            --app-version 0.0.1-SNAPSHOT `
+            --app-version 0.0.1 `
             --main-class org.prolific.dev.App
 
       # Upload JAR artifact (Linux and Windows)
