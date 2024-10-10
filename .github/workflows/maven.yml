@@ -13,8 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [windows-latest]
-        #os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest]
 
     steps:
       - name: Checkout code
@@ -30,6 +29,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
+            ~/.m2/repository # Linux
             C:\Users\runneradmin\.m2\repository # Windows
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
@@ -39,15 +39,15 @@ jobs:
         run: |
           mvn clean package -Drevision=${{ github.sha }} -Dbranch=${{ github.ref_name }}
 
-      # Use Xvfb to simulate a display on Linux
-      #- name: Start Xvfb on Linux
-      #  if: runner.os == 'Linux'
-      #  run: |
-      #    sudo apt-get update
-      #    sudo apt-get install xvfb
-      #    Xvfb :99 -ac &
-      #    export DISPLAY=:99
-      #    mvn javafx:run -Drevision=${{ github.sha }} -Dbranch=${{ github.ref_name }}
+      - name: Setup Xvfb
+        if: runner.os == 'Linux'
+        uses: GabrielBB/xvfb-action@v1
+
+      - name: Run the application on Linux
+        if: runner.os == 'Linux'
+        run: |
+          export DISPLAY=:99
+          mvn javafx:run -Drevision=${{ github.sha }} -Dbranch=${{ github.ref_name }}
 
       - name: Run the application on Windows
         if: runner.os == 'Windows'
