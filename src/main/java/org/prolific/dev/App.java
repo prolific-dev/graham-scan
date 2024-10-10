@@ -40,9 +40,6 @@ public class App extends Application {
         return fxmlLoader.load();
     }
 
-    public static void main(String[] args) {
-        System.setProperty("java.awt.headless", "true");
-        launch();
-    }
+    public static void main(String[] args) { launch(); }
 
 }

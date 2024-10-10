@@ -5,7 +5,6 @@
     <groupId>org.prolific.dev</groupId>
     <artifactId>graham-scan</artifactId>
     <version>${revision}-${branch}</version>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
@@ -13,7 +12,6 @@
         <javafx.version>17.0.12</javafx.version>
         <revision>0.0.1-SNAPSHOT</revision>
         <branch>dev</branch>
-        <java.awt.headless>true</java.awt.headless>
     </properties>
     <dependencies>
         <dependency>

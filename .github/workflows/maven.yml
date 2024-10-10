@@ -1,7 +1,12 @@
-name: Build and Run JavaFX App
+name: Build JavaFX App for Multiple Platforms
 
 on:
   push:
+    branches:
+      - main
+      - release
+      - dev
+  pull_request:
     branches:
       - main
       - release
@@ -16,17 +21,19 @@ jobs:
         os: [ubuntu-latest, windows-latest]
 
     steps:
+      # Checkout the code
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Set up JDK
-        uses: actions/setup-java@v2
+      # Set up JDK 17
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
         with:
           distribution: 'adopt'
           java-version: '17'
 
       - name: Cache Maven dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             ~/.m2/repository # Linux
@@ -36,9 +43,29 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Build with Maven
-        run: |
-          mvn clean package -Drevision=${{ github.sha }} -Dbranch=${{ github.ref_name }}
+        run: mvn clean package -Drevision=${{ github.sha }} -Dbranch=${{ github.ref_name }}
 
-      - name: Run the application
+      - name: Package as EXE with jpackage (Windows only)
+        if: runner.os == 'Windows'
         run: |
-          mvn javafx:run -Djava.awt.headless=true -Drevision=${{ github.sha }} -Dbranch=${{ github.ref_name }}
+          jpackage \
+            --input target/ \
+            --main-jar graham-scan-${{ github.sha }}-${{ github.ref_name }}.jar \
+            --name GrahamScan \
+            --win-console \
+            --type exe \
+            --app-version 0.0.1-SNAPSHOT \
+            --main-class org.prolific.dev.App
+
+      - name: Upload JAR artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: built-jar-${{ runner.os }}
+          path: target/graham-scan-${{ github.sha }}-${{ github.ref_name }}.jar
+
+      - name: Upload EXE artifact
+        if: runner.os == 'Windows'
+        uses: actions/upload-artifact@v3
+        with:
+          name: built-exe
+          path: GrahamScan-0.0.1-SNAPSHOT.exe
