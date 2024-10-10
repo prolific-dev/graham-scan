@@ -40,15 +40,17 @@ jobs:
           mvn clean package -Drevision=${{ github.sha }} -Dbranch=${{ github.ref_name }}
 
       # Use Xvfb to simulate a display on Linux
-      - name: Start Xvfb on Linux
+      - name: Start Xvfb and run tests on Linux
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install xvfb
-          Xvfb :99 -ac &
-          export DISPLAY=:99
+          sudo apt-get install -y xvfb xauth x11-utils
+          Xvfb :99 -screen 0 1920x1080x24 -ac &  # Start Xvfb on display :99
+          export DISPLAY=:99  # Set the display environment variable
+          sleep 3  # Wait a few seconds to ensure Xvfb starts properly
           xvfb-run mvn javafx:run -Drevision=${{ github.sha }} -Dbranch=${{ github.ref_name }}
 
+      # Run the application on Windows
       - name: Run the application on Windows
         if: runner.os == 'Windows'
         run: |
