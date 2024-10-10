@@ -13,7 +13,8 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [windows-latest]
+        #os: [ubuntu-latest, windows-latest]
 
     steps:
       - name: Checkout code
@@ -29,7 +30,6 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            ~/.m2/repository # Linux
             C:\Users\runneradmin\.m2\repository # Windows
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
