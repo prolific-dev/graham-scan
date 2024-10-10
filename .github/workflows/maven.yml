@@ -32,6 +32,7 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
 
+      # Cache Maven dependencies
       - name: Cache Maven dependencies
         uses: actions/cache@v3
         with:
@@ -42,27 +43,31 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
+      # Build the JAR with Maven
       - name: Build with Maven
         run: mvn clean package -Drevision=${{ github.sha }} -Dbranch=${{ github.ref_name }}
 
+      # Windows-specific step to package the JAR as an EXE using jpackage
       - name: Package as EXE with jpackage (Windows only)
         if: runner.os == 'Windows'
         run: |
-          jpackage \
-            --input target/ \
-            --main-jar graham-scan-${{ github.sha }}-${{ github.ref_name }}.jar \
-            --name GrahamScan \
-            --win-console \
-            --type exe \
-            --app-version 0.0.1-SNAPSHOT \
+          jpackage `
+            --input target `
+            --main-jar graham-scan-${{ github.sha }}-${{ github.ref_name }}.jar `
+            --name GrahamScan `
+            --win-console `
+            --type exe `
+            --app-version 0.0.1-SNAPSHOT `
             --main-class org.prolific.dev.App
 
+      # Upload JAR artifact (Linux and Windows)
       - name: Upload JAR artifact
         uses: actions/upload-artifact@v3
         with:
           name: built-jar-${{ runner.os }}
           path: target/graham-scan-${{ github.sha }}-${{ github.ref_name }}.jar
 
+      # Upload EXE artifact (Windows only)
       - name: Upload EXE artifact
         if: runner.os == 'Windows'
         uses: actions/upload-artifact@v3
