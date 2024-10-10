@@ -41,4 +41,4 @@ jobs:
 
       - name: Run the application
         run: |
-          mvn javafx:run -Drevision=${{ github.sha }} -Dbranch=${{ github.ref_name }}
+          mvn javafx:run -Djava.awt.headless=true -Drevision=${{ github.sha }} -Dbranch=${{ github.ref_name }}
