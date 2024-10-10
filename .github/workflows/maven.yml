@@ -1,4 +1,4 @@
-name: Build and Run on Multiple OS
+name: Build and Run JavaFX App
 
 on:
   push:
