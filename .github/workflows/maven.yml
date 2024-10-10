@@ -38,13 +38,13 @@ jobs:
       - name: Build with Maven
         run: |
           mvn clean package -Drevision=${{ github.sha }} -Dbranch=${{ github.ref_name }}
-          
+
       - name: Run the application on Linux
         if: runner.os == 'Linux'
         run: |
-          mvn javafx:run graham-scan-${{ github.sha }}-${{ github.ref_name }}
+          mvn javafx:run -Drevision=${{ github.sha }} -Dbranch=${{ github.ref_name }}
 
       - name: Run the application on Windows
         if: runner.os == 'Windows'
         run: |
-          mvn javafx:run graham-scan-${{ github.sha }}-${{ github.ref_name }}
+          mvn javafx:run -Drevision=${{ github.sha }} -Dbranch=${{ github.ref_name }}
