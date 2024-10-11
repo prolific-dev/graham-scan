@@ -47,6 +47,15 @@ jobs:
       - name: Build with Maven
         run: mvn clean package -Drevision=${{ github.sha }} -Dbranch=${{ github.ref_name }}
 
+      # List target directory to verify JAR generation
+      - name: List target directory
+        run: ls target/
+
+      - name: Print GitHub SHA and Branch
+        run: |
+          echo "SHA: ${{ github.sha }}"
+          echo "Branch: ${{ github.ref_name }}"
+
       # Upload JAR artifact (Linux and Windows)
       - name: Upload JAR artifact
         uses: actions/upload-artifact@v4
