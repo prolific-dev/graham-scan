@@ -61,4 +61,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Graham-Scan-JAR-${{ runner.os }}
-          path: target/graham-scan-${{ github.sha }}-${{ github.ref_name }}.jar
+          path: target/graham-scan-0.0.1-SNAPSHOT.jar
