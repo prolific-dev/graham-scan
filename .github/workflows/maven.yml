@@ -47,32 +47,9 @@ jobs:
       - name: Build with Maven
         run: mvn clean package -Drevision=${{ github.sha }} -Dbranch=${{ github.ref_name }}
 
-      # Windows-specific step to package the JAR as an EXE using jpackage
-      - name: Package as EXE with jpackage (Windows only)
-        if: runner.os == 'Windows'
-        run: |
-          jpackage `
-            --input target `
-            --main-jar graham-scan-${{ github.sha }}-${{ github.ref_name }}.jar `
-            --name GrahamScan `
-            --win-console `
-            --type exe `
-            --app-version 0.0.1 `
-            --main-class org.prolific.dev.App `
-            --module-path C:\Users\${{ env.USERPROFILE }}\.m2\repository\org\openjfx\javafx-controls\17.0.12\javafx-controls-17.0.12.jar;C:\Users\${{ env.USERPROFILE }}\.m2\repository\org\openjfx\javafx-graphics\17.0.12\javafx-graphics-17.0.12.jar;C:\Users\${{ env.USERPROFILE }}\.m2\repository\org\openjfx\javafx-base\17.0.12\javafx-base-17.0.12.jar;C:\Users\${{ env.USERPROFILE }}\.m2\repository\org\openjfx\javafx-fxml\17.0.12\javafx-fxml-17.0.12.jar `
-            --add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.base
-
       # Upload JAR artifact (Linux and Windows)
       - name: Upload JAR artifact
         uses: actions/upload-artifact@v4
         with:
           name: Graham-Scan-JAR-${{ runner.os }}
           path: target/graham-scan-${{ github.sha }}-${{ github.ref_name }}.jar
-
-      # Upload EXE artifact (Windows only)
-      - name: Upload EXE artifact
-        if: runner.os == 'Windows'
-        uses: actions/upload-artifact@v4
-        with:
-          name: Graham-Scan
-          path: GrahamScan-0.0.1.exe
